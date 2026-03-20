@@ -36,6 +36,6 @@ public class EnchantmentScreenMixin {
             @Local(name = "k") int enchantmentPowerInt
     ) {
         float enchantmentLevelCostMultiplier = 0.5F; // TODO: make this configurable via json
-        return Math.round(enchantmentPowerInt * enchantmentLevelCostMultiplier);
+        return (int) Math.floor(enchantmentPowerInt * enchantmentLevelCostMultiplier);
     }
 }

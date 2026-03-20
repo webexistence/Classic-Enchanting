@@ -28,6 +28,6 @@ public class EnchantmentHelperMixin {
     private int changeEnchantmentCostServer(int originalEnchantmentCost, @Local(name = "id") int enchantmentIndex) {
         float enchantmentLevelCostMultiplier = 0.5F; // TODO: make this configurable via json
         // enchantmentPower[0,1,2] contains the level requirements (max is 30).
-        return Math.round(this.enchantmentPower[enchantmentIndex] * enchantmentLevelCostMultiplier);
+        return (int) Math.floor(this.enchantmentPower[enchantmentIndex] * enchantmentLevelCostMultiplier);
     }
 }
