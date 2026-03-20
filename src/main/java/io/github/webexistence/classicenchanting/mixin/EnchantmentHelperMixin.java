@@ -15,7 +15,7 @@ public class EnchantmentHelperMixin {
     public int[] enchantmentPower;
 
     /**
-     * Modifies the original enchantment cost (server-side) based on level required and a multiplier.
+     * Modifies enchantment cost (server-side) based on level required and a multiplier.
      * @param   originalEnchantmentCost "i"; Equal to (enchantmentIndex + 1). Values (1,2,3). Unused.
      * @param   enchantmentIndex        "id"; Index of enchantment. Values (0,1,2).
      * return                           The modified enchantment cost.
