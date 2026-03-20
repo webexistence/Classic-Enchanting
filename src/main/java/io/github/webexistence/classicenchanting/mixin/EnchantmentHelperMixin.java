@@ -25,7 +25,7 @@ public class EnchantmentHelperMixin {
             at = @At(value = "STORE"),
             name = "i"
     )
-    private int changeEnchantmentCost(int originalEnchantmentCost, @Local(name = "id") int enchantmentIndex) {
+    private int changeEnchantmentCostServer(int originalEnchantmentCost, @Local(name = "id") int enchantmentIndex) {
         float enchantmentLevelCostMultiplier = 0.5F; // TODO: make this configurable via json
         // enchantmentPower[0,1,2] contains the level requirements (max is 30).
         return Math.round(this.enchantmentPower[enchantmentIndex] * enchantmentLevelCostMultiplier);
