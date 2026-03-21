@@ -1,6 +1,7 @@
 package io.github.webexistence.classicenchanting.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import io.github.webexistence.classicenchanting.ClassicEnchanting;
 import net.minecraft.screen.EnchantmentScreenHandler;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -10,9 +11,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(EnchantmentScreenHandler.class)
 public class EnchantmentHelperMixin {
-    @Shadow
-    @Final
-    public int[] enchantmentPower;
+    @Shadow @Final public int[] enchantmentPower;
 
     /**
      * Modifies enchantment cost (server-side) based on level required and a multiplier.
@@ -26,8 +25,6 @@ public class EnchantmentHelperMixin {
             name = "i"
     )
     private int changeEnchantmentCostServer(int originalEnchantmentCost, @Local(name = "id") int enchantmentIndex) {
-        float enchantmentLevelCostMultiplier = 0.5F; // TODO: make this configurable via json
-        // enchantmentPower[0,1,2] contains the level requirements (max is 30).
-        return (int) Math.floor(this.enchantmentPower[enchantmentIndex] * enchantmentLevelCostMultiplier);
+        return ClassicEnchanting.calculateEnchantmentCost(this.enchantmentPower[enchantmentIndex]);
     }
 }

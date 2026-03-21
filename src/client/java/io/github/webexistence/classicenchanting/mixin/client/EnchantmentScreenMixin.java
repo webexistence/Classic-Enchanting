@@ -1,13 +1,18 @@
 package io.github.webexistence.classicenchanting.mixin.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import io.github.webexistence.classicenchanting.ClassicEnchanting;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.EnchantmentScreen;
+import net.minecraft.screen.ScreenTexts;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
@@ -35,7 +40,48 @@ public class EnchantmentScreenMixin {
             int originalEnchantmentCost,
             @Local(name = "k") int enchantmentPowerInt
     ) {
-        float enchantmentLevelCostMultiplier = 0.5F; // TODO: make this configurable via json
-        return (int) Math.floor(enchantmentPowerInt * enchantmentLevelCostMultiplier);
+        return ClassicEnchanting.calculateEnchantmentCost(enchantmentPowerInt);
     }
+
+    /**
+     * When your experience level is below required amount, we still want to show the actual cost of it.
+     */
+    @Inject(
+            method = "render",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Ljava/util/List;add(Ljava/lang/Object;)Z",
+                    shift = At.Shift.AFTER
+            ),
+            slice = @Slice(
+                    from = @At(
+                            value = "CONSTANT",
+                            args = "stringValue=container.enchant.level.requirement"
+                    ),
+                    to = @At(
+                            value = "CONSTANT",
+                            args = "stringValue=container.enchant.lapis.one"
+                    )
+            )
+    )
+    private void levelCostTooltip(
+            DrawContext context,
+            int mouseX,
+            int mouseY,
+            float deltaTicks,
+            CallbackInfo ci,
+            @Local(name = "list") List<Text> enchantTooltipTextList,
+            @Local(name = "k") int enchantmentPowerInt
+    ) {
+        MutableText mutableText;
+        int enchantmentCost = ClassicEnchanting.calculateEnchantmentCost(enchantmentPowerInt);
+        if (enchantmentCost == 1) {
+            mutableText = Text.translatable("container.enchant.level.one");
+        } else {
+            mutableText = Text.translatable("container.enchant.level.many", new Object[]{enchantmentCost});
+        }
+        enchantTooltipTextList.add(ScreenTexts.EMPTY);
+        enchantTooltipTextList.add(mutableText.formatted(Formatting.RED));
+    }
+
 }

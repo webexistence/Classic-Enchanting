@@ -21,4 +21,16 @@ public class ClassicEnchanting implements ModInitializer {
 
 		LOGGER.info("Hello Fabric world!");
 	}
+
+	/**
+	 * Calculate new enchantment cost based on power and a multiplier.
+	 * Rounds down to be more generous to lower-level enchantments.
+	 * @param 	enchantmentPowerInt	The original level requirements (max 30).
+	 * @return						Integer enchantment cost.
+	 */
+	public static int calculateEnchantmentCost(int enchantmentPowerInt) {
+		float enchantmentLevelCostMultiplier = 0.5F; // TODO: make this configurable via json
+		int enchantmentCost = (int) Math.floor(enchantmentPowerInt * enchantmentLevelCostMultiplier);
+		return Math.max(Math.min(enchantmentCost, 64), 1);
+	}
 }
