@@ -3,8 +3,7 @@
   "package": "io.github.webexistence.classicenchanting.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "EnchantmentHelperMixin",
-    "ExampleMixin"
+    "EnchantmentHelperMixin"
   ],
   "injectors": {
     "defaultRequire": 1
