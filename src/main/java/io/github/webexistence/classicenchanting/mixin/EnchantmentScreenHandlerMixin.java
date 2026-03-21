@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(EnchantmentScreenHandler.class)
-public class EnchantmentHelperMixin {
+public class EnchantmentScreenHandlerMixin {
     @Shadow @Final public int[] enchantmentPower;
 
     /**
