@@ -8,7 +8,7 @@ import eu.midnightdust.lib.config.MidnightConfig;
 public class ClassicEnchantingConfig extends MidnightConfig {
     public static final String GENERAL = "general";
 
-    @Entry(category = GENERAL, isSlider = true, min=0.0f, max=2.5, precision = 4)
+    @Entry(category = GENERAL, isSlider = true, min=0.0, max=2.5, precision = 4)
     public static double enchantmentLevelCostMultiplier = 1.0;
     @Entry(category = GENERAL)
     public static boolean enableGrindstoneMultiplier = true;
