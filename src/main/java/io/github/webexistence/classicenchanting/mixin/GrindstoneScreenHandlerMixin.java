@@ -25,7 +25,7 @@ public class GrindstoneScreenHandlerMixin {
             method = "getExperience(Lnet/minecraft/item/ItemStack;)I",
             at = @At("RETURN")
     )
-    private int changeExperience(int originalExperience) {
+    private int changeGrindstoneExperience(int originalExperience) {
         if (!ClassicEnchantingConfig.enableGrindstoneMultiplier) {
             return originalExperience;
         }
