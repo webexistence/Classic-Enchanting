@@ -30,7 +30,7 @@ public class GrindstoneScreenHandlerMixin {
             return originalExperience;
         }
         int maxEnchantCost = EnchantmentCostHelper.calculateEnchantmentCost(MAX_ENCHANT_LEVEL);
-        float grindstoneExperienceMultiplier = maxEnchantCost / MAX_ENCHANT_COST_VANILLA;
+        double grindstoneExperienceMultiplier = (double) maxEnchantCost / MAX_ENCHANT_COST_VANILLA;
         return Math.max(1, (int) Math.ceil(originalExperience * grindstoneExperienceMultiplier));
     }
 }
