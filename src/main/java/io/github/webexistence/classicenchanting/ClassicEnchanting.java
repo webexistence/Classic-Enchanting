@@ -15,8 +15,6 @@ public class ClassicEnchanting implements ModInitializer {
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	private static final int MAX_ENCHANT_COST = 64;
-
 	@Override
 	public void onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
@@ -26,16 +24,5 @@ public class ClassicEnchanting implements ModInitializer {
 		LOGGER.info("Hello Fabric world!");
 
 		MidnightConfig.init(MOD_ID, ClassicEnchantingConfig.class);
-	}
-
-	/**
-	 * Calculate new enchantment cost based on power and a multiplier.
-	 * Rounds down to be more generous to lower-level enchantments.
-	 * @param 	enchantmentPowerInt	The original level requirements (max 30).
-	 * @return						Integer enchantment cost.
-	 */
-	public static int calculateEnchantmentCost(int enchantmentPowerInt) {
-		int enchantmentCost = (int) Math.floor(enchantmentPowerInt * ClassicEnchantingConfig.enchantmentLevelCostMultiplier);
-		return Math.max(Math.min(enchantmentCost, MAX_ENCHANT_COST), 1);
 	}
 }

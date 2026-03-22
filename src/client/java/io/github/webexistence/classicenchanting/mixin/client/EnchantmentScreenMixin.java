@@ -1,7 +1,7 @@
 package io.github.webexistence.classicenchanting.mixin.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import io.github.webexistence.classicenchanting.ClassicEnchanting;
+import io.github.webexistence.classicenchanting.util.EnchantmentCostHelper;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.EnchantmentScreen;
 import net.minecraft.screen.ScreenTexts;
@@ -45,7 +45,7 @@ public class EnchantmentScreenMixin {
             int originalEnchantmentCost,
             @Local(name = "k") int enchantmentPowerInt
     ) {
-        return ClassicEnchanting.calculateEnchantmentCost(enchantmentPowerInt);
+        return EnchantmentCostHelper.calculateEnchantmentCost(enchantmentPowerInt);
     }
 
     /**
@@ -79,7 +79,7 @@ public class EnchantmentScreenMixin {
             @Local(name = "k") int enchantmentPowerInt
     ) {
         MutableText mutableText;
-        int enchantmentCost = ClassicEnchanting.calculateEnchantmentCost(enchantmentPowerInt);
+        int enchantmentCost = EnchantmentCostHelper.calculateEnchantmentCost(enchantmentPowerInt);
         if (enchantmentCost == 1) {
             mutableText = Text.translatable("container.enchant.level.one");
         } else {

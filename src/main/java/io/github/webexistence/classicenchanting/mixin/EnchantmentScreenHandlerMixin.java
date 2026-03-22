@@ -1,7 +1,7 @@
 package io.github.webexistence.classicenchanting.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import io.github.webexistence.classicenchanting.ClassicEnchanting;
+import io.github.webexistence.classicenchanting.util.EnchantmentCostHelper;
 import net.minecraft.screen.EnchantmentScreenHandler;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,6 +25,6 @@ public class EnchantmentScreenHandlerMixin {
             name = "i"
     )
     private int changeEnchantmentCostServer(int originalEnchantmentCost, @Local(name = "id") int enchantmentIndex) {
-        return ClassicEnchanting.calculateEnchantmentCost(this.enchantmentPower[enchantmentIndex]);
+        return EnchantmentCostHelper.calculateEnchantmentCost(this.enchantmentPower[enchantmentIndex]);
     }
 }

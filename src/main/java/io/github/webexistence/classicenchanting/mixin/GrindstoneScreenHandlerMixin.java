@@ -1,8 +1,8 @@
 package io.github.webexistence.classicenchanting.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import io.github.webexistence.classicenchanting.ClassicEnchanting;
 import io.github.webexistence.classicenchanting.config.ClassicEnchantingConfig;
+import io.github.webexistence.classicenchanting.util.EnchantmentCostHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -29,7 +29,7 @@ public class GrindstoneScreenHandlerMixin {
         if (!ClassicEnchantingConfig.enableGrindstoneMultiplier) {
             return originalExperience;
         }
-        int maxEnchantCost = ClassicEnchanting.calculateEnchantmentCost(MAX_ENCHANT_LEVEL);
+        int maxEnchantCost = EnchantmentCostHelper.calculateEnchantmentCost(MAX_ENCHANT_LEVEL);
         float grindstoneExperienceMultiplier = maxEnchantCost / MAX_ENCHANT_COST_VANILLA;
         return Math.max(1, (int) Math.ceil(originalExperience * grindstoneExperienceMultiplier));
     }
