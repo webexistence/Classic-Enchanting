@@ -1,7 +1,7 @@
 {
   "classic-enchanting.midnightconfig.title": "Classic Enchanting",
   "classic-enchanting.midnightconfig.enchantmentLevelCostMultiplier": "Enchantment Level Cost Multiplier",
-  "classic-enchanting.midnightconfig.enchantmentLevelCostMultiplier.tooltip": "A multiplier of 1.0 makes the max enchantment cost all 30 XP levels.\nA multiplier of 0.5 would make the max enchantmnet cost 15 XP levels.",
+  "classic-enchanting.midnightconfig.enchantmentLevelCostMultiplier.tooltip": "A multiplier of 1.0 makes the max enchantment cost all 30 XP levels.\nA multiplier of 0.5 would make the max enchantment cost 15 XP levels.\nA multiplier of 0.0 makes everything cost 1 XP level.",
   "classic-enchanting.midnightconfig.enableGrindstoneMultiplier": "Enable Grindstone Experience Multiplier",
   "classic-enchanting.midnightconfig.enableGrindstoneMultiplier.tooltip": "Grindstone gives more experience. Amount is automatically calculated based on the XP cost multiplier.",
   "classic-enchanting.midnightconfig.category.general": "General"
