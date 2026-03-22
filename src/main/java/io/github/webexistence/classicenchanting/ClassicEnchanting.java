@@ -1,5 +1,7 @@
 package io.github.webexistence.classicenchanting;
 
+import eu.midnightdust.lib.config.MidnightConfig;
+import io.github.webexistence.classicenchanting.config.ClassicEnchantingConfig;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -13,6 +15,8 @@ public class ClassicEnchanting implements ModInitializer {
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
+	private static final int MAX_ENCHANT_COST = 64;
+
 	@Override
 	public void onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
@@ -20,6 +24,8 @@ public class ClassicEnchanting implements ModInitializer {
 		// Proceed with mild caution.
 
 		LOGGER.info("Hello Fabric world!");
+
+		MidnightConfig.init(MOD_ID, ClassicEnchantingConfig.class);
 	}
 
 	/**
@@ -29,8 +35,7 @@ public class ClassicEnchanting implements ModInitializer {
 	 * @return						Integer enchantment cost.
 	 */
 	public static int calculateEnchantmentCost(int enchantmentPowerInt) {
-		float enchantmentLevelCostMultiplier = 0.5F; // TODO: make this configurable via json
-		int enchantmentCost = (int) Math.floor(enchantmentPowerInt * enchantmentLevelCostMultiplier);
-		return Math.max(Math.min(enchantmentCost, 64), 1);
+		int enchantmentCost = (int) Math.floor(enchantmentPowerInt * ClassicEnchantingConfig.enchantmentLevelCostMultiplier);
+		return Math.max(Math.min(enchantmentCost, MAX_ENCHANT_COST), 1);
 	}
 }
