@@ -48,6 +48,12 @@ public class EnchantmentScreenMixin {
         return EnchantmentCostHelper.calculateEnchantmentCost(enchantmentPowerInt);
     }
 
+    /* TODO: need to modify the actual enchant level required displayed in the table when multiplier is >1.0.
+        for example, say the multiplier is cranked all the way up and it cost 64 for max lvl enchant.
+        The table enchantment will still read as "30", and will be highlighted as if it can be selected
+        when the player reaches level 30, even though they cannot afford the enchantment.*/
+
+
     /**
      * When your experience level is below required amount, we still want to show the actual cost of it.
      */
