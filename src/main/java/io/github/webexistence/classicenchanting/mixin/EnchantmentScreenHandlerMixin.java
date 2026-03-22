@@ -15,7 +15,7 @@ public class EnchantmentScreenHandlerMixin {
 
     /**
      * Modifies enchantment cost (server-side) based on level required and a multiplier.
-     * @param   originalEnchantmentCost "i"; Equal to (enchantmentIndex + 1). Values (1,2,3). Unused.
+     * @param   originalEnchantmentCost "i"; Equal to (enchantmentIndex + 1). Values (1,2,3). Unused; this is the target.
      * @param   enchantmentIndex        "id"; Index of enchantment. Values (0,1,2).
      * return                           The modified enchantment cost.
      */
