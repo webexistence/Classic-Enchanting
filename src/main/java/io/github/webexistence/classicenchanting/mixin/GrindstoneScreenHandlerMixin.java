@@ -6,7 +6,7 @@ import io.github.webexistence.classicenchanting.config.ClassicEnchantingConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-// We have to target the anonymous inner class
+// Target the anonymous inner class
 @Mixin(targets = "net/minecraft/screen/GrindstoneScreenHandler$4")
 public class GrindstoneScreenHandlerMixin {
     private static final int MAX_ENCHANT_COST_VANILLA = 3;
