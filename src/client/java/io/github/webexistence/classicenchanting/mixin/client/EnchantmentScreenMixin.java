@@ -9,10 +9,7 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Slice;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
@@ -46,6 +43,28 @@ public class EnchantmentScreenMixin {
             @Local(name = "k") int enchantmentPowerInt
     ) {
         return EnchantmentCostHelper.calculateEnchantmentCost(enchantmentPowerInt);
+    }
+
+    /**
+     * Set enchantment slot to have "disabled" texture if you do not have enough lapis (following the cost multiplier).
+     * Without this, the source code uses the vanilla lapis costs of (1,2,3) to determine whether it will highlight
+     * the enchantment slot (to indicate that the player can currently afford it).
+     * The original source comparison is "lapisCount < enchantmentIndex + 1". The math here modifies the "1".
+     * @param original The "1" from the source comparison.
+     * @param enchantmentIndex "l"; values (0,1,2).
+     * @param enchantmentPowerInt "o"; Experience level required to enchant.
+     * @return New integer to place into source comparison.
+     */
+    @ModifyConstant(
+            method = "drawBackground",
+            constant = @Constant(intValue = 1, ordinal = 0)
+    )
+    private int enchantmentSlotDisabledTexture(
+            int original,
+            @Local(name = "l") int enchantmentIndex,
+            @Local(name = "o") int enchantmentPowerInt
+    ) {
+        return enchantmentPowerInt - enchantmentIndex;
     }
 
     /**
