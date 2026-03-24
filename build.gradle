@@ -49,7 +49,6 @@ dependencies {
 
 	// configuration dependencies
 	modImplementation include ("eu.midnightdust:midnightlib:${project.midnightlib_version}")
-	//modApi "com.terraformersmc:modmenu:${modmenu_version}"
 	modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
 }
 
