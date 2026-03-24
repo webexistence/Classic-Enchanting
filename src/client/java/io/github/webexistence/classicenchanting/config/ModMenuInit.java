@@ -1,4 +1,4 @@
-package io.github.webexistence.classicenchanting.mixin.client.config;
+package io.github.webexistence.classicenchanting.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;

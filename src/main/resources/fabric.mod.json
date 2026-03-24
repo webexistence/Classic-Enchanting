@@ -20,6 +20,9 @@
 		],
 		"client": [
 			"io.github.webexistence.classicenchanting.ClassicEnchantingClient"
+		],
+		"modmenu": [
+			"io.github.webexistence.classicenchanting.config.ModMenuInit"
 		]
 	},
 	"mixins": [
