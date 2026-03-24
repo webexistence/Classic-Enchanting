@@ -50,6 +50,8 @@ public class EnchantmentScreenMixin {
 
     /**
      * When your experience level is below required amount, we still want to show the actual cost of it.
+     * Exception when the cost multiplier is 1.0, which makes XP lvl cost the same as the requirement. In this case,
+     * the extra tooltip info is redundant.
      */
     @Inject(
             method = "render",
@@ -78,8 +80,11 @@ public class EnchantmentScreenMixin {
             @Local(name = "list") List<Text> enchantTooltipTextList,
             @Local(name = "k") int enchantmentPowerInt
     ) {
-        MutableText mutableText;
         int enchantmentCost = EnchantmentCostHelper.calculateEnchantmentCost(enchantmentPowerInt);
+        if (enchantmentCost >= 30) {
+            return;
+        }
+        MutableText mutableText;
         if (enchantmentCost == 1) {
             mutableText = Text.translatable("container.enchant.level.one");
         } else {
