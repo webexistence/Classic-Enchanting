@@ -71,7 +71,7 @@ public class EnchantmentScreenMixin {
             @Local(ordinal = 5) int enchantmentIndex, // name = "l"
             @Local(ordinal = 8) int enchantmentPowerInt // name = "o"
     ) {
-        return enchantmentPowerInt - enchantmentIndex;
+        return EnchantmentCostHelper.calculateEnchantmentCost(enchantmentPowerInt) - enchantmentIndex;
     }
 
     /**
