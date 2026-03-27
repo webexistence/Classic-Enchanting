@@ -23,7 +23,14 @@ public class EnchantmentScreenMixin {
                     target = "Lnet/minecraft/client/gui/DrawContext;drawTooltip(Lnet/minecraft/client/font/TextRenderer;Ljava/util/List;II)V"
             )
     )
-    private void removeEnchantClue(DrawContext context, int mouseX, int mouseY, float deltaTicks, CallbackInfo ci, @Local(name = "list") List<Text> enchantTooltipTextList) {
+    private void removeEnchantClue(
+            DrawContext context,
+            int mouseX,
+            int mouseY,
+            float deltaTicks,
+            CallbackInfo ci,
+            @Local(ordinal = 0) List<Text> enchantTooltipTextList // name = "list"
+    ) {
         enchantTooltipTextList.subList(0, Math.min(2, enchantTooltipTextList.size())).clear();
     }
 
@@ -36,11 +43,11 @@ public class EnchantmentScreenMixin {
     @ModifyVariable(
             method = "render",
             at = @At(value = "STORE"),
-            name = "m"
+            ordinal = 6 // name = "m"
     )
     private int changeEnchantmentCostClient(
             int originalEnchantmentCost,
-            @Local(name = "k") int enchantmentPowerInt
+            @Local(ordinal = 4) int enchantmentPowerInt // name = "k"
     ) {
         return EnchantmentCostHelper.calculateEnchantmentCost(enchantmentPowerInt);
     }
@@ -61,11 +68,51 @@ public class EnchantmentScreenMixin {
     )
     private int enchantmentSlotDisabledTexture(
             int original,
-            @Local(name = "l") int enchantmentIndex,
-            @Local(name = "o") int enchantmentPowerInt
+//            @Local(ordinal = 0) int zero,
+//            @Local(ordinal = 1) int one,
+//            @Local(ordinal = 2) int two,
+//            @Local(ordinal = 3) int three,
+//            @Local(ordinal = 4) int four,
+//            @Local(ordinal = 5) int five,
+//            @Local(ordinal = 6) int six,
+//            @Local(ordinal = 7) int seven,
+            @Local(ordinal = 5) int enchantmentIndex, // name = "l"
+            @Local(ordinal = 8) int enchantmentPowerInt // name = "o"
     ) {
+//        System.out.println();
+//        System.out.println("zero: " + zero);
+//        System.out.println("one: " + one);
+//        System.out.println("two: " + two);
+//        System.out.println("three: " + three);
+//        System.out.println("four: " + four);
+//        System.out.println("five: " + five);
+//        System.out.println("six: " + six);
+//        System.out.println("seven: " + seven);
+//        System.out.println("DEBUG: enchantmentIndex: " + enchantmentIndex);
+//        System.out.println("DEBUG: enchantmentPowerInt: " + enchantmentPowerInt);
+
         return enchantmentPowerInt - enchantmentIndex;
     }
+
+//    @ModifyVariable(
+//            method = "drawBackground",
+//            at = @At(value = "STORE"),
+//            ordinal = 2 // name = "k"
+//    )
+//    private int enchantmentSlotDisabledTexture(
+//            int originalEnchantmentCost,
+//            @Local(ordinal = 0) int zero,
+//            @Local(ordinal = 1) int one,
+//            @Local(ordinal = 2) int two,
+//            @Local(ordinal = 2) int enchantmentPowerInt // name = "o"
+//    ) {
+//        System.out.println();
+//        System.out.println("zero: " + zero);
+//        System.out.println("one: " + one);
+//        System.out.println("two: " + two);
+//        return 1;
+//    }
+
 
     /**
      * When your experience level is below required amount, we still want to show the actual cost of it.
@@ -96,9 +143,26 @@ public class EnchantmentScreenMixin {
             int mouseY,
             float deltaTicks,
             CallbackInfo ci,
-            @Local(name = "list") List<Text> enchantTooltipTextList,
-            @Local(name = "k") int enchantmentPowerInt
+            @Local(ordinal = 0) List<Text> enchantTooltipTextList, // name = "list"
+//            @Local(ordinal = 0) int zero,
+//            @Local(ordinal = 1) int one,
+//            @Local(ordinal = 2) int two,
+//            @Local(ordinal = 3) int three,
+//            @Local(ordinal = 4) int four,
+//            @Local(ordinal = 5) int five,
+//            @Local(ordinal = 6) int six,
+            @Local(ordinal = 4) int enchantmentPowerInt // name = "k"
     ) {
+//        System.out.println();
+//        System.out.println("zero: " + zero);
+//        System.out.println("one: " + one);
+//        System.out.println("two: " + two);
+//        System.out.println("three: " + three);
+//        System.out.println("four: " + four);
+//        System.out.println("five: " + five);
+//        System.out.println("six: " + six);
+        // TODO: currently, this seems to work on both dev and real env. However, real env seems to only work after enchanting something. figure this out? idk
+
         int enchantmentCost = EnchantmentCostHelper.calculateEnchantmentCost(enchantmentPowerInt);
         if (enchantmentCost >= 30) {
             return;

@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 // Target the anonymous inner class
-@Mixin(targets = "net/minecraft/screen/GrindstoneScreenHandler$4")
+@Mixin(targets = "net.minecraft.screen.GrindstoneScreenHandler$4")
 public class GrindstoneScreenHandlerMixin {
     private static final int MAX_ENCHANT_COST_VANILLA = 3;
     private static final int MAX_ENCHANT_LEVEL = 30;
