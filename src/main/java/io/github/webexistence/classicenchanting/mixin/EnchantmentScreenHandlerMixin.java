@@ -13,41 +13,21 @@ public class EnchantmentScreenHandlerMixin {
     @Final
     public int[] enchantmentPower;
 
-//    /**
-//     * Modifies enchantment cost (server-side) based on level required and a multiplier.
-//     * The original source assignment here is "enchantmentCost = enchantmentIndex + 1". The math here modifies the "1".
-//     * This is done because my previous implementation using @ModifyVariable had issues changing it directly.
-//     * @param original
-//     * @param enchantmentIndex
-//     * @return
-//     */
-//    @ModifyConstant(
-//            method = "onButtonClick",
-//            constant = @Constant(intValue = 1, ordinal = 0)
-//    )
-//    private int changeEnchantmentCostServer(int original, @Local(name = "id") int enchantmentIndex) {
-//        int enchantmentCost = EnchantmentCostHelper.calculateEnchantmentCost(this.enchantmentPower[enchantmentIndex]);
-//        System.out.println("original:" + original);
-//        System.out.println("enchantmentIndex:" + enchantmentIndex);
-//        System.out.println("enchantmentCost:" + enchantmentCost);
-//        return enchantmentCost - enchantmentIndex;
-//    }
-
     /**
-     * TODO
-     * @param experienceLevels
-     * @return
+     * Modifies enchantment level cost (server-side) based on level required and a multiplier.
+     * @param originalLevelCost "i"; Vanilla level cost. Used to deduce enchantmentIndex.
+     * @return Modified enchantment level cost.
      */
     @ModifyArg(
-            method = "method_17410",
+            method = "method_17410", // lambda method inside onButtonClick()
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/entity/player/PlayerEntity;applyEnchantmentCosts(Lnet/minecraft/item/ItemStack;I)V"
             ),
             index = 1
     )
-    private int changeEnchantmentCostServer(int experienceLevels) {
-        int enchantmentIndex = experienceLevels - 1;
+    private int changeEnchantmentCostServer(int originalLevelCost) {
+        int enchantmentIndex = originalLevelCost - 1;
         return EnchantmentCostHelper.calculateEnchantmentCost(this.enchantmentPower[enchantmentIndex]);
     }
 }
