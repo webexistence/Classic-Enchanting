@@ -14,7 +14,7 @@ public class GrindstoneScreenHandlerMixin {
 
     /**
      * Calculate increased experience value to return from the grindstone.
-     * The calculation is based on the configurable enchantment cost multiplier. For example, if using the default
+     * The calculation is based on the configurable enchantment cost multiplier. For example, if using a
      * cost multiplier of 1.0, then the max enchantment cost is 30. The original cost in vanilla would be only 3.
      * The new cost is 10 times greater than the original cost (30 / 3 = 10). Thus, set the grindstone xp multiplier
      * to be 10.0. The goal is to counter-balance the grindstone in a world with extra expensive enchanting.
