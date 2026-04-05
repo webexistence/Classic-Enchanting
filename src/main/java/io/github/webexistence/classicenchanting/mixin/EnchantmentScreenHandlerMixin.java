@@ -39,7 +39,6 @@ public class EnchantmentScreenHandlerMixin {
             ordinal=1 // "i"
     )
     private int changeCost(int originalCost) {
-        System.out.println("DEBUG: originalCost = " + originalCost);
         return calculateCostByIndex(originalCost);
     }
 }
