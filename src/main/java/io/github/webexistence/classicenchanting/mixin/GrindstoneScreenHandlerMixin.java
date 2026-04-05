@@ -18,8 +18,8 @@ public class GrindstoneScreenHandlerMixin {
      * cost multiplier of 1.0, then the max enchantment cost is 30. The original cost in vanilla would be only 3.
      * The new cost is 10 times greater than the original cost (30 / 3 = 10). Thus, set the grindstone xp multiplier
      * to be 10.0. The goal is to counter-balance the grindstone in a world with extra expensive enchanting.
-     * @param   originalExperience  "i"; The original amount of experienced to be return for a particular item.
-     * @return                      Increased experience value.
+     * @param originalExperience "i"; The original amount of experienced to be return for a particular item.
+     * @return Increased experience value.
      */
     @ModifyReturnValue(
             method = "getExperience(Lnet/minecraft/item/ItemStack;)I",

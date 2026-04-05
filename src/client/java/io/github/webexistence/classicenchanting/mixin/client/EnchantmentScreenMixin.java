@@ -36,9 +36,9 @@ public class EnchantmentScreenMixin {
 
     /**
      * Modifies the displayed enchantment cost (client-side) based on level required and a multiplier.
-     * @param   originalEnchantmentCost "m"; Equal to (enchantmentIndex + 1). Values (1,2,3). Unused; this is the target.
-     * @param   enchantmentPowerInt     "k"; Experience level required to enchant.
-     * return                           The modified enchantment cost.
+     * @param originalEnchantmentCost "m"; Equal to (enchantmentIndex + 1). Values (1,2,3). Unused; this is the target.
+     * @param enchantmentPowerInt "k"; Experience level required to enchant.
+     * return The modified enchantment cost.
      */
     @ModifyVariable(
             method = "render",

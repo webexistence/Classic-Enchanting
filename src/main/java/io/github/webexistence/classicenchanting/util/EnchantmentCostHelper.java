@@ -8,8 +8,8 @@ public class EnchantmentCostHelper {
     /**
      * Calculate new enchantment cost based on power and a multiplier.
      * Rounds down to be more generous to lower-level enchantments.
-     * @param 	enchantmentPowerInt	The original level requirement (max 30).
-     * @return						Integer enchantment cost.
+     * @param enchantmentPowerInt The original level requirement (max 30).
+     * @return Integer enchantment cost.
      */
     public static int calculateEnchantmentCost(int enchantmentPowerInt) {
         int enchantmentCost = (int) Math.floor(enchantmentPowerInt * ClassicEnchantingConfig.enchantmentLevelCostMultiplier);
