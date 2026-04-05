@@ -8,8 +8,8 @@
 		"DMTR"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://modrinth.com/mod/classic-enchanting",
+		"sources": "https://github.com/webexistence/Classic-Enchanting"
 	},
 	"license": "MIT",
 	"icon": "assets/classic-enchanting/icon.png",
