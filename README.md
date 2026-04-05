@@ -14,11 +14,15 @@ My goal is to somewhat follow Jeb's vision of [impermanent gear](https://bsky.ap
 
 The vanilla enchanting table may be seen as too weak compared to villager trading, which very well may be; however, even the enchanting table on its own is quite powerful. Enchantments only cost up to 3 levels in vanilla; once you read level 30, you tend to hover around there and somewhat frequently get high level enchantments, given you do not die. If you factor in XP farms, the RNG of the table almost does not matter as you can just keep enchanting.
 
-In contrast, the enchanting table costed an entire 50 levels when introduced. This is _too_ difficult, especially for what you may get. It was eventually changed to cost only 30 levels. This is a decent balance; enchantments are powerful, but rare enough to feel special.
+In contrast, the enchanting table used to cost an entire 50 levels when introduced. This is _too_ difficult, especially for what you may get. It was eventually changed to cost only 30 levels. This is a decent balance; enchantments are powerful, but rare enough to feel special.
 
 This mod offers a **compromise** between the old and new systems. By default, the max power enchantment from the table (power level 30) will cost only _half_ of the enchantment power. Like in vanilla, you still must have at least 30 levels to purchase the enchantment.
 
 To address villagers, this mod is best combined with some kind of villager trade nerf, especially for trades which contain enchantments (mostly the Librarian's books).
+
+## Client and Server
+
+While this mod does modify the actual enchantment cost on the server-side, it is **highly recommended** to have it installed on both client and server. Without it installed on the client, the true cost will be obscured. Further, the client will be able to see the vanilla enchantment clue (cheating!).
 
 ## Configuration
 
