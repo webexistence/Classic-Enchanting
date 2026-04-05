@@ -3,9 +3,9 @@
 	"id": "classic-enchanting",
 	"version": "${version}",
 	"name": "Classic Enchanting",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Rebalanced enchanting mechanics inspired by older versions.",
 	"authors": [
-		"Me!"
+		"DMTR"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
