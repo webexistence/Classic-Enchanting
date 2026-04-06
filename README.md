@@ -1,6 +1,6 @@
 # Classic Enchanting
 
-Minecraft mod that rebalances enchanting mechanics, inspired from older mechanics from before release 1.8.
+Minecraft mod that rebalances enchanting mechanics, inspired by older mechanics from before release 1.8.
 
 Enchanting still costs levels; however, the level cost is now based on the **enchantment power** (up to 30) instead of its index in the enchanting table (1,2,3). The Lapis Lazuli cost also follows this.
 
