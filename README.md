@@ -24,6 +24,8 @@ To address villagers, this mod is best combined with some kind of villager trade
 
 While this mod does modify the actual enchantment cost on the server-side, it is **highly recommended** to have it installed on both client and server. Without it installed on the client, the true cost will be obscured. Further, the client will be able to see the vanilla enchantment clue (cheating!).
 
+Further, client config must be manually synchronized with the server, else the client display cost will be incorrect.
+
 ## Configuration
 
 This mod can be configured in-game via [Mod Menu](https://modrinth.com/mod/modmenu) or by manually editing its JSON file `config/classic-enchanting.json`.
