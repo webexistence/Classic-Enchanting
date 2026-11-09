@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 // Target the anonymous inner class
-@Mixin(targets = "net.minecraft.screen.GrindstoneScreenHandler$4")
+@Mixin(targets = "net.minecraft.world.inventory.GrindstoneMenu$4")
 public class GrindstoneScreenHandlerMixin {
     private static final int MAX_ENCHANT_COST_VANILLA = 3;
     private static final int MAX_ENCHANT_LEVEL = 30;
@@ -22,7 +22,7 @@ public class GrindstoneScreenHandlerMixin {
      * @return Increased experience value.
      */
     @ModifyReturnValue(
-            method = "getExperience(Lnet/minecraft/item/ItemStack;)I",
+            method = "getExperienceFromItem(Lnet/minecraft/world/item/ItemStack;)I",
             at = @At("RETURN")
     )
     private int changeGrindstoneExperience(int originalExperience) {

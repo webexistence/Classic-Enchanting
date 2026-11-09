@@ -2,12 +2,12 @@ package io.github.webexistence.classicenchanting.mixin.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import io.github.webexistence.classicenchanting.util.EnchantmentCostHelper;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.EnchantmentScreen;
-import net.minecraft.screen.ScreenTexts;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.EnchantmentScreen;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -20,16 +20,16 @@ public class EnchantmentScreenMixin {
             method = "render",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/DrawContext;drawTooltip(Lnet/minecraft/client/font/TextRenderer;Ljava/util/List;II)V"
+                    target = "Lnet/minecraft/client/gui/GuiGraphics;setComponentTooltipForNextFrame(Lnet/minecraft/client/gui/Font;Ljava/util/List;II)V"
             )
     )
     private void removeEnchantClue(
-            DrawContext context,
+            GuiGraphics context,
             int mouseX,
             int mouseY,
             float deltaTicks,
             CallbackInfo ci,
-            @Local(ordinal = 0) List<Text> enchantTooltipTextList // name = "list"
+            @Local(ordinal = 0) List<Component> enchantTooltipTextList // name = "list"
     ) {
         enchantTooltipTextList.subList(0, Math.min(2, enchantTooltipTextList.size())).clear();
     }
@@ -63,7 +63,7 @@ public class EnchantmentScreenMixin {
      * @return New integer to place into source comparison.
      */
     @ModifyConstant(
-            method = "drawBackground",
+            method = "renderBg",
             constant = @Constant(intValue = 1, ordinal = 0)
     )
     private int enchantmentSlotDisabledTexture(
@@ -98,26 +98,26 @@ public class EnchantmentScreenMixin {
             )
     )
     private void levelCostTooltip(
-            DrawContext context,
+            GuiGraphics context,
             int mouseX,
             int mouseY,
             float deltaTicks,
             CallbackInfo ci,
-            @Local(ordinal = 0) List<Text> enchantTooltipTextList, // name = "list"
+            @Local(ordinal = 0) List<Component> enchantTooltipTextList, // name = "list"
             @Local(ordinal = 4) int enchantmentPowerInt // name = "k"
     ) {
         int enchantmentCost = EnchantmentCostHelper.calculateEnchantmentCost(enchantmentPowerInt);
         if (enchantmentCost >= 30) {
             return;
         }
-        MutableText mutableText;
+        MutableComponent mutableText;
         if (enchantmentCost == 1) {
-            mutableText = Text.translatable("container.enchant.level.one");
+            mutableText = Component.translatable("container.enchant.level.one");
         } else {
-            mutableText = Text.translatable("container.enchant.level.many", new Object[]{enchantmentCost});
+            mutableText = Component.translatable("container.enchant.level.many", new Object[]{enchantmentCost});
         }
-        enchantTooltipTextList.add(ScreenTexts.EMPTY);
-        enchantTooltipTextList.add(mutableText.formatted(Formatting.RED));
+        enchantTooltipTextList.add(CommonComponents.EMPTY);
+        enchantTooltipTextList.add(mutableText.withStyle(ChatFormatting.RED));
     }
 
 }

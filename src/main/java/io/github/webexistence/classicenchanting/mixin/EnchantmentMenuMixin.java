@@ -1,7 +1,7 @@
 package io.github.webexistence.classicenchanting.mixin;
 
 import io.github.webexistence.classicenchanting.util.EnchantmentCostHelper;
-import net.minecraft.screen.EnchantmentScreenHandler;
+import net.minecraft.world.inventory.EnchantmentMenu;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -9,11 +9,11 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-@Mixin(EnchantmentScreenHandler.class)
-public class EnchantmentScreenHandlerMixin {
+@Mixin(EnchantmentMenu.class)
+public class EnchantmentMenuMixin {
     @Shadow
     @Final
-    public int[] enchantmentPower;
+    public int[] costs;
 
     /**
      * The mixin in this class for modifying cost relies on source "i = id + 1"; This logic deduces "id", the
@@ -25,7 +25,7 @@ public class EnchantmentScreenHandlerMixin {
     @Unique
     private int calculateCostByIndex(int originalCost) {
         int enchantmentIndex = originalCost - 1;
-        return EnchantmentCostHelper.calculateEnchantmentCost(this.enchantmentPower[enchantmentIndex]);
+        return EnchantmentCostHelper.calculateEnchantmentCost(this.costs[enchantmentIndex]);
     }
 
     /**
@@ -34,7 +34,7 @@ public class EnchantmentScreenHandlerMixin {
      * @return Modified level/lapis cost.
      */
     @ModifyVariable(
-            method="onButtonClick",
+            method= "clickMenuButton",
             at=@At("STORE"),
             ordinal=1 // "i"
     )
