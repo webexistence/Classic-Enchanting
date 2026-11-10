@@ -78,6 +78,10 @@ jar {
 	}
 }
 
+base {
+	archivesName = project.archives_base_name
+}
+
 // configure the maven publication
 publishing {
 	publications {
