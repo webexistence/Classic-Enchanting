@@ -16,9 +16,9 @@ public class EnchantmentMenuMixin {
     public int[] costs;
 
     /**
-     * The mixin in this class for modifying cost relies on source "i = id + 1"; This logic deduces "id", the
-     * enchantmentIndex, from "i", the originalCost. We subtract 1 to cancel out the "+ 1" and set our own cost based
-     * on the enchantmentPower.
+     * The mixin in this class for modifying cost relies on source "enchantmentCost = buttonId + 1";
+     * This logic deduces "buttonId", the enchantmentIndex, from "enchantmentCost", the originalCost.
+     * We subtract 1 to cancel out the "+ 1" and set our own cost based on the enchantmentPower.
      * @param originalCost Vanilla cost (1,2,3).
      * @return Modified cost.
      */
@@ -30,13 +30,13 @@ public class EnchantmentMenuMixin {
 
     /**
      * Modifies the original level/lapis cost (server-side). Both level & lapis cost use the same variable.
-     * @param originalCost "i"; Vanilla cost (1,2,3).
+     * @param originalCost Vanilla cost (1,2,3).
      * @return Modified level/lapis cost.
      */
     @ModifyVariable(
-            method= "clickMenuButton",
-            at=@At("STORE"),
-            ordinal=1 // "i"
+            method = "clickMenuButton",
+            at = @At("STORE"),
+            name = "enchantmentCost"
     )
     private int changeCost(int originalCost) {
         return calculateCostByIndex(originalCost);

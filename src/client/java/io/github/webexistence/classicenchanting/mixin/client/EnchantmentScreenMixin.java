@@ -2,7 +2,7 @@ package io.github.webexistence.classicenchanting.mixin.client;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import io.github.webexistence.classicenchanting.util.EnchantmentCostHelper;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.EnchantmentScreen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.MutableComponent;
@@ -17,37 +17,39 @@ import java.util.List;
 @Mixin(EnchantmentScreen.class)
 public class EnchantmentScreenMixin {
     @Inject(
-            method = "render",
+            method = "extractRenderState",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/GuiGraphics;setComponentTooltipForNextFrame(Lnet/minecraft/client/gui/Font;Ljava/util/List;II)V"
+                    target = "java/util/List.add(Ljava/lang/Object;)Z",
+                    ordinal = 1,
+                    shift = At.Shift.AFTER
             )
     )
     private void removeEnchantClue(
-            GuiGraphics context,
+            GuiGraphicsExtractor graphics,
             int mouseX,
             int mouseY,
             float deltaTicks,
             CallbackInfo ci,
-            @Local(ordinal = 0) List<Component> enchantTooltipTextList // name = "list"
+            @Local(name = "texts") List<Component> enchantTooltipTextList
     ) {
         enchantTooltipTextList.subList(0, Math.min(2, enchantTooltipTextList.size())).clear();
     }
 
     /**
      * Modifies the displayed enchantment cost (client-side) based on level required and a multiplier.
-     * @param originalEnchantmentCost "m"; Equal to (enchantmentIndex + 1). Values (1,2,3). Unused; this is the target.
-     * @param enchantmentPowerInt "k"; Experience level required to enchant.
+     * @param originalEnchantmentCost Equal to (enchantmentIndex + 1). Values (1,2,3). Unused; this is the target.
+     * @param enchantmentPowerInt Experience level required to enchant.
      * return The modified enchantment cost.
      */
     @ModifyVariable(
-            method = "render",
+            method = "extractRenderState",
             at = @At(value = "STORE"),
-            ordinal = 6 // name = "m"
+            name = "cost"
     )
     private int changeEnchantmentCostClient(
             int originalEnchantmentCost,
-            @Local(ordinal = 4) int enchantmentPowerInt // name = "k"
+            @Local(name = "minLevel") int enchantmentPowerInt
     ) {
         return EnchantmentCostHelper.calculateEnchantmentCost(enchantmentPowerInt);
     }
@@ -57,19 +59,20 @@ public class EnchantmentScreenMixin {
      * Without this, the source code uses the vanilla lapis costs of (1,2,3) to determine whether it will highlight
      * the enchantment slot (to indicate that the player can currently afford it).
      * The original source comparison is "lapisCount < enchantmentIndex + 1". The math here modifies the "1".
+     * Tip: In 26.2 source, "goldCount" is lapisCount. :)
      * @param original The "1" from the source comparison.
-     * @param enchantmentIndex "l"; values (0,1,2).
-     * @param enchantmentPowerInt "o"; Experience level required to enchant.
+     * @param enchantmentIndex Index values (0,1,2).
+     * @param enchantmentPowerInt Experience level required to enchant.
      * @return New integer to place into source comparison.
      */
     @ModifyConstant(
-            method = "renderBg",
+            method = "extractBackground",
             constant = @Constant(intValue = 1, ordinal = 0)
     )
     private int enchantmentSlotDisabledTexture(
             int original,
-            @Local(ordinal = 5) int enchantmentIndex, // name = "l"
-            @Local(ordinal = 8) int enchantmentPowerInt // name = "o"
+            @Local(name = "i") int enchantmentIndex,
+            @Local(name = "cost") int enchantmentPowerInt
     ) {
         return EnchantmentCostHelper.calculateEnchantmentCost(enchantmentPowerInt) - enchantmentIndex;
     }
@@ -80,7 +83,7 @@ public class EnchantmentScreenMixin {
      * the extra tooltip info is redundant.
      */
     @Inject(
-            method = "render",
+            method = "extractRenderState",
             at = @At(
                     value = "INVOKE",
                     target = "Ljava/util/List;add(Ljava/lang/Object;)Z",
@@ -98,13 +101,13 @@ public class EnchantmentScreenMixin {
             )
     )
     private void levelCostTooltip(
-            GuiGraphics context,
+            GuiGraphicsExtractor graphics,
             int mouseX,
             int mouseY,
             float deltaTicks,
             CallbackInfo ci,
-            @Local(ordinal = 0) List<Component> enchantTooltipTextList, // name = "list"
-            @Local(ordinal = 4) int enchantmentPowerInt // name = "k"
+            @Local(name = "texts") List<Component> enchantTooltipTextList,
+            @Local(name = "minLevel") int enchantmentPowerInt
     ) {
         int enchantmentCost = EnchantmentCostHelper.calculateEnchantmentCost(enchantmentPowerInt);
         if (enchantmentCost >= 30) {
